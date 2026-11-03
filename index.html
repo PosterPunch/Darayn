@@ -1,0 +1,1129 @@
+<title>Darayn</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Darayn is a free Umrah companion that prepares you, guides you step by step, and stays with you in Makkah and Madinah. Launching June 2027.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Marcellus&family=Tajawal:wght@300;400;500&display=swap">
+<script>
+(function(){
+  var d=document.documentElement;
+  if('IntersectionObserver' in window) d.classList.add('js');
+  try{var t=localStorage.getItem('darayn-theme');if(t==='light'||t==='dark')d.setAttribute('data-theme',t)}catch(e){}
+})();
+</script>
+<style>
+/* Layout concept: a slow, cinematic scroll. A trio of dark phones on a stage of gold-edged glass cards, then one feature per band, alternating warm-white surfaces with charcoal bands, everything hung from the logo's two arches. */
+:root{
+  --font-display:'Marcellus','Optima','Candara','Palatino Linotype','Book Antiqua',serif;
+  --font-body:'Jost','Avenir Next','Avenir','Century Gothic','Segoe UI',system-ui,sans-serif;
+  --font-ar:'Tajawal','Segoe UI','Geeza Pro',Tahoma,sans-serif;
+ 
+  --bg:#F7F5F0; --bg2:#EFECE4; --fg:#181818; --fg2:#5B5C58;
+  --gold:#C5A46D; --gold-ink:#7F6431; --logo:#181818;
+  --line:rgba(24,24,24,.14); --line-gold:rgba(150,116,56,.5);
+  --glass:rgba(255,255,255,.62); --chip:rgba(24,24,24,.05);
+  --shadow:0 40px 70px -40px rgba(24,24,24,.45);
+  --btn-bg:#181818; --btn-fg:#F7F5F0; --glow:rgba(197,164,109,.34);
+ 
+  /* device screens and charcoal bands keep their dark look in both themes */
+  --dev-bg:#0E0E0D; --dev-card:#1A1918; --dev-fg:#F2EEE6; --dev-mut:#9C9A92; --dev-gold:#C5A46D; --dev-line:rgba(197,164,109,.28);
+  --band-bg:#151515; --band-fg:#F4F1EA; --band-mut:#ABA8A0; --band-line:rgba(197,164,109,.3);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111110; --bg2:#171716; --fg:#F4F1EA; --fg2:#A9A69E;
+    --gold-ink:#C5A46D; --logo:#C5A46D;
+    --line:rgba(244,241,234,.12); --line-gold:rgba(197,164,109,.38);
+    --glass:rgba(255,255,255,.045); --chip:rgba(255,255,255,.06);
+    --shadow:0 40px 80px -40px rgba(0,0,0,.9);
+    --btn-bg:#C5A46D; --btn-fg:#151515; --glow:rgba(197,164,109,.16);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111110; --bg2:#171716; --fg:#F4F1EA; --fg2:#A9A69E;
+  --gold-ink:#C5A46D; --logo:#C5A46D;
+  --line:rgba(244,241,234,.12); --line-gold:rgba(197,164,109,.38);
+  --glass:rgba(255,255,255,.045); --chip:rgba(255,255,255,.06);
+  --shadow:0 40px 80px -40px rgba(0,0,0,.9);
+  --btn-bg:#C5A46D; --btn-fg:#151515; --glow:rgba(197,164,109,.16);
+  color-scheme:dark;
+}
+ 
+*{box-sizing:border-box}
+html{font-size:clamp(16px,.42vw + 10.6px,30px);scroll-behavior:smooth;scroll-padding-top:5.5rem;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:300 1.0625rem/1.65 var(--font-body);overflow-x:clip;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:400;margin:0;text-wrap:balance;letter-spacing:.005em}
+p{margin:0;text-wrap:pretty}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:inherit}
+ul,ol{margin:0;padding:0;list-style:none}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+svg.i{width:1.2em;height:1.2em;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
+ 
+.wrap{width:100%;max-width:78rem;margin-inline:auto;padding-left:max(clamp(20px,4vw,48px),env(safe-area-inset-left,0px));padding-right:max(clamp(20px,4vw,48px),env(safe-area-inset-right,0px))}
+@media (min-width:1800px){.wrap{max-width:92rem}}
+ 
+/* ---------- shared pieces ---------- */
+.kicker{display:flex;align-items:center;gap:.9rem;font:400 .74rem/1.3 var(--font-body);letter-spacing:.3em;text-transform:uppercase;color:var(--gold-ink)}
+.kicker::before{content:"";flex:none;width:2.2rem;height:1px;background:currentColor;opacity:.7}
+.mini{font:400 .68rem/1.2 var(--font-body);letter-spacing:.26em;text-transform:uppercase;color:var(--gold-ink)}
+h2{font-size:clamp(1.9rem,3vw + .7rem,3.3rem);line-height:1.12;margin-top:1.4rem}
+.lede{font-size:1.15rem;color:var(--fg2);max-width:35rem;margin-top:1.3rem}
+.sec{position:relative;padding-block:clamp(4.5rem,9vw,8.5rem)}
+.sec.alt{background:var(--bg2)}
+.band{background:var(--band-bg);color:var(--band-fg);--fg:var(--band-fg);--fg2:var(--band-mut);--gold-ink:#C5A46D;--logo:#C5A46D;--line:var(--band-line);--line-gold:var(--band-line);--glass:rgba(255,255,255,.04);--chip:rgba(255,255,255,.06);--btn-bg:#C5A46D;--btn-fg:#151515;--shadow:0 40px 80px -40px rgba(0,0,0,.9)}
+.split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(2.2rem,5vw,5.5rem);align-items:center}
+@media (max-width:899px){.split{grid-template-columns:minmax(0,1fr)}}
+@media (min-width:900px){.split.flip>:first-child{order:2}}
+ 
+.card{position:relative;background:var(--glass);border:1px solid var(--line-gold);border-radius:.7rem;padding:clamp(1.25rem,2.4vw,2rem);box-shadow:var(--shadow);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);overflow:hidden;min-width:0}
+.card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(115deg,transparent 42%,rgba(197,164,109,.16) 50%,transparent 58%);background-size:260% 100%;background-position:130% 0;transition:background-position 1.2s cubic-bezier(.3,.6,.2,1)}
+.card:hover::after{background-position:-40% 0}
+.badge{font:400 .66rem/1 var(--font-body);letter-spacing:.18em;text-transform:uppercase;padding:.5rem .7rem;border:1px solid var(--line-gold);border-radius:.4rem;color:var(--gold-ink);white-space:nowrap}
+.badge.on{background:var(--gold);color:#151515;border-color:var(--gold)}
+ 
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:.7rem;padding:1rem 1.5rem;border-radius:.55rem;font:500 .76rem/1 var(--font-body);letter-spacing:.18em;text-transform:uppercase;text-decoration:none;border:1px solid transparent;transition:transform .35s,border-color .35s,background .35s}
+.btn.primary{background:var(--btn-bg);color:var(--btn-fg)}
+.btn.ghost{border-color:var(--line-gold);color:var(--fg)}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.28) 50%,transparent 65%);background-size:260% 100%;background-position:140% 0;transition:background-position .9s;pointer-events:none}
+.btn:hover{transform:translateY(-2px)}
+.btn:hover::after{background-position:-40% 0}
+.btn.ghost:hover{border-color:var(--gold)}
+.btns{display:flex;flex-wrap:wrap;gap:.9rem}
+ 
+.js .reveal{opacity:.28;transform:translateY(1.6rem);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.js .reveal.in{opacity:1;transform:none}
+ 
+.logo{display:block;width:100%;height:auto;color:inherit;stroke-width:var(--sw,2.4)}
+.draw .logo path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 2.2s cubic-bezier(.5,0,.2,1) forwards}
+.draw .logo path:nth-child(1){animation-delay:.5s}
+.draw .logo path:nth-child(2){animation-delay:.9s}
+.draw .logo path:nth-child(3){animation-delay:1.1s}
+ 
+/* ---------- header ---------- */
+.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 80%,transparent);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);border-bottom:1px solid transparent;transition:border-color .4s}
+.site.scrolled{border-bottom-color:var(--line)}
+.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:4.25rem}
+.brand{display:flex;align-items:center;gap:.85rem;text-decoration:none;color:var(--fg)}
+.brand .mk{width:2.5rem;color:var(--logo);--sw:4}
+.wm{font:400 .95rem/1 var(--font-display);letter-spacing:.42em;text-transform:uppercase;padding-top:.15rem}
+.nav{display:flex;gap:2.2rem}
+.nav a{position:relative;text-decoration:none;font:400 .72rem/1 var(--font-body);letter-spacing:.22em;text-transform:uppercase;color:var(--fg2);padding-block:.5rem;transition:color .3s}
+.nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.nav a:hover{color:var(--fg)} .nav a:hover::after{transform:scaleX(1)}
+@media (max-width:899px){.nav{display:none}}
+.tools{display:flex;gap:.6rem}
+.icon-btn{width:2.6rem;height:2.6rem;border:1px solid var(--line);border-radius:.55rem;display:grid;place-items:center;color:var(--fg);transition:border-color .3s,background .3s}
+.icon-btn:hover{border-color:var(--gold);background:var(--chip)}
+.icon-btn svg.i{width:1.15rem;height:1.15rem}
+#theme .sun{display:none}
+#theme[data-mode="dark"] .sun{display:block}
+#theme[data-mode="dark"] .moon{display:none}
+ 
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;padding-top:clamp(2.5rem,5vw,4.75rem);padding-bottom:clamp(2.5rem,5vw,4rem)}
+.hero::before{content:"";position:absolute;left:50%;top:46%;width:min(105rem,170vw);aspect-ratio:1;transform:translate(-50%,-50%);background:radial-gradient(closest-side,var(--glow),transparent 68%);animation:breathe 9s ease-in-out infinite;pointer-events:none}
+.hero .wrap{position:relative}
+.eyebrow{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem;font:400 .74rem/1.3 var(--font-body);letter-spacing:.28em;text-transform:uppercase;color:var(--gold-ink)}
+.eyebrow .dot{position:relative;width:.55rem;height:.55rem;border-radius:50%;background:var(--gold)}
+.eyebrow .dot::after{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid var(--gold);animation:ping 2.4s ease-out infinite}
+.eyebrow i{width:1px;height:.9rem;background:var(--line-gold)}
+.h1{font-size:clamp(1.95rem,3.7vw + .25rem,3.7rem);line-height:1.16;margin-top:1.7rem;max-width:62rem}
+.h1 .ln{display:block}
+.h1 .ln>span{display:block;animation:lineup 1.1s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d)}
+.h1 em{font-style:normal;color:var(--gold-ink)}
+.hero .sub{font-size:1.2rem;color:var(--fg2);max-width:36rem;margin-top:1.8rem;animation:lineup 1.1s .7s cubic-bezier(.2,.7,.2,1) both}
+.hero .btns{margin-top:2rem;animation:lineup 1.1s .85s cubic-bezier(.2,.7,.2,1) both}
+ 
+.stage{--mx:0;--my:0;position:relative;margin-top:clamp(2.5rem,5vw,4.5rem);font-size:min(1rem,2.15vw)}
+.trio{display:flex;justify-content:center;align-items:flex-start;position:relative;z-index:2}
+.pw{position:relative;animation:rise 1.3s cubic-bezier(.2,.7,.2,1) both,float 9s ease-in-out infinite;animation-delay:var(--dl,0s),calc(var(--dl,0s) + 1.4s)}
+.pw.l{margin-right:-3.4em;margin-top:3.8em;z-index:1}
+.pw.c{z-index:3}
+.pw.r{margin-left:-3.4em;margin-top:3.8em;z-index:1}
+.phone{width:16em;aspect-ratio:9/19.2;border-radius:2.7em;padding:.42em;background:linear-gradient(150deg,#5a554c 0%,#1c1b19 30%,#2d2a25 70%,#4d483f 100%);box-shadow:0 3.2em 4em -2em rgba(0,0,0,.65),0 0 0 .06em rgba(255,255,255,.1) inset,0 0 0 1px rgba(0,0,0,.45);transform:translate3d(calc(var(--mx)*var(--k,0)*1em),calc(var(--my)*var(--k,0)*.7em),0) rotate(var(--rot,0deg));transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.pw.c .phone{width:17.6em}
+.scr{position:relative;height:100%;border-radius:2.3em;overflow:hidden;display:flex;flex-direction:column;background:radial-gradient(120% 60% at 50% 0%,#222120,var(--dev-bg) 62%);color:var(--dev-fg);font-size:.82em;line-height:1.35;font-weight:300}
+.scr::before{content:"";position:absolute;top:.8em;left:50%;width:6.2em;height:1.8em;border-radius:1em;background:#000;transform:translateX(-50%);z-index:3}
+.scr svg.i{width:1.3em;height:1.3em}
+.sb{display:flex;justify-content:space-between;align-items:center;padding:1.15em 2em .4em;font-weight:500;font-size:.9em;position:relative;z-index:4}
+.sb .sig{display:flex;gap:2px;align-items:flex-end}
+.sb .sig i{width:3px;background:var(--dev-fg);border-radius:1px}
+.sb .sig i:nth-child(1){height:.4em}.sb .sig i:nth-child(2){height:.65em}.sb .sig i:nth-child(3){height:.9em}
+.pa{padding:1.6em 1.5em 0;display:flex;flex-direction:column;flex:1;min-height:0}
+.pa h4{font:400 1.45em/1.2 var(--font-body);color:var(--dev-fg)}
+.pa .s{color:var(--dev-mut);font-size:.9em;margin-top:.2em}
+.rows{margin-top:1.3em}
+.rows li{display:grid;grid-template-columns:2.9em 1fr auto;gap:.9em;align-items:center;padding:.85em 0;border-bottom:1px solid var(--dev-line)}
+.rows .ic{width:2.9em;height:2.9em;border-radius:50%;border:1px solid var(--dev-gold);display:grid;place-items:center;color:var(--dev-gold)}
+.rows b{display:block;font-weight:500;font-size:1em;color:var(--dev-fg)}
+.rows small{display:block;color:var(--dev-mut);font-size:.82em}
+.rows .chev{color:var(--dev-mut);width:1em;height:1em}
+.rows li.done .ic{background:var(--dev-gold);color:#151515}
+.rows li.now{background:linear-gradient(90deg,rgba(197,164,109,.14),transparent);margin-inline:-1.5em;padding-inline:1.5em;border-bottom-color:transparent}
+.rnd{margin-top:auto;margin-bottom:1em;background:var(--dev-card);border:1px solid var(--dev-line);border-radius:1em;padding:1.1em 1.2em}
+.rnd small{display:block;color:var(--dev-gold);letter-spacing:.24em;text-transform:uppercase;font-size:.7em}
+.rnd b{display:block;font:400 1.35em/1.3 var(--font-display);margin:.15em 0 .6em}
+.dots{display:flex;gap:.45em}
+.dots i{flex:1;height:.3em;border-radius:1em;background:rgba(244,241,234,.14)}
+.dots i.on{background:var(--dev-gold)}
+.tabs{display:flex;justify-content:space-around;padding:.9em .6em 1.3em;border-top:1px solid var(--dev-line);background:rgba(0,0,0,.35)}
+.tabs span{display:flex;flex-direction:column;align-items:center;gap:.25em;font-size:.72em;color:var(--dev-mut)}
+.tabs span.on{color:var(--dev-gold)}
+.splash{align-items:center}
+.splash-in{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.1em;padding-bottom:3em}
+.splash .mk{width:8.5em;color:var(--dev-gold);--sw:2.6}
+.spw{font:400 1.7em/1 var(--font-display);letter-spacing:.42em;margin-right:-.42em;color:var(--dev-gold);animation:lineup 1.4s 1.6s both}
+.spa{font:300 1.65em/1 var(--font-ar);color:var(--dev-gold);animation:lineup 1.4s 1.9s both}
+.sweep{position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.07) 50%,transparent 60%);background-size:300% 100%;animation:sheen 7s 2.5s ease-in-out infinite;pointer-events:none}
+.pb{padding:1.6em 1.3em .6em}
+.pb h4{font:400 1.3em/1.2 var(--font-body)}
+.pb .s{color:var(--dev-mut);font-size:.88em}
+.pseg{display:flex;gap:.5em;margin-top:1em}
+.pseg span{flex:1;text-align:center;padding:.55em 0;border-radius:2em;border:1px solid var(--dev-line);font-size:.85em;color:var(--dev-mut)}
+.pseg span.on{background:rgba(197,164,109,.2);color:var(--dev-fg);border-color:var(--dev-gold)}
+.pmap{position:relative;flex:1;margin:.4em 0 0;overflow:hidden;background:radial-gradient(90% 80% at 50% 50%,#262523,#0c0c0b)}
+.pmap svg.m{position:absolute;inset:0;width:100%;height:100%}
+.pmap .lbl{position:absolute;left:50%;top:58%;transform:translateX(-50%);background:rgba(20,19,18,.92);border:1px solid var(--dev-line);border-radius:2em;padding:.45em 1em;font-size:.85em;white-space:nowrap}
+.pmap .loc{position:absolute;left:50%;top:70%;width:1.1em;height:1.1em;border-radius:50% 50% 50% 0;background:var(--dev-gold);transform:translate(-50%,0) rotate(-45deg);box-shadow:0 0 0 .35em rgba(197,164,109,.2)}
+ 
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(14.5rem,1fr));gap:1rem;margin-top:3rem;position:relative;z-index:1}
+.gc{position:relative;padding:1.4rem 1.6rem 1.5rem;border:1px solid var(--line-gold);border-radius:.55rem;background:var(--glass);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);font-size:1rem;transition:transform .5s cubic-bezier(.2,.7,.2,1),border-color .4s;animation:rise 1.2s both}
+.gc:hover{transform:translateY(-4px);border-color:var(--gold)}
+.gc h3{font:300 .76rem/1.9 var(--font-body);letter-spacing:.28em;text-transform:uppercase;color:var(--fg)}
+.gc i{display:block;width:1.8rem;height:1px;background:var(--gold);margin:.9rem 0}
+.gc p{font-size:.95rem;color:var(--fg2);line-height:1.6}
+.g1{animation-delay:.9s}.g2{animation-delay:1.05s}.g3{animation-delay:1.2s}.g4{animation-delay:1.35s}
+@media (min-width:1400px){
+  .cards{position:absolute;inset:0;display:block;margin:0;pointer-events:none}
+  .gc{position:absolute;width:15.5rem;pointer-events:auto}
+  .g1{left:0;top:1rem}.g2{left:0;top:17.5rem}.g3{right:0;top:6rem}.g4{right:0;top:22rem}
+}
+.pill{position:relative;z-index:1;display:flex;align-items:center;gap:1.1rem;width:max-content;max-width:100%;margin:2.4rem auto 0;padding:1rem 1.6rem;border:1px solid var(--line-gold);border-radius:.55rem;background:var(--glass);font:400 .72rem/1.5 var(--font-body);letter-spacing:.28em;text-transform:uppercase}
+.pill svg.i{width:1.9rem;height:1.9rem;padding:.4rem;border:1px solid var(--gold);border-radius:50%;color:var(--gold-ink)}
+.pill i{width:1px;height:1.6rem;background:var(--line-gold)}
+ 
+.tagline{text-align:center;padding-block:clamp(3rem,6vw,5rem);font:300 .8rem/2 var(--font-body);letter-spacing:.42em;text-transform:uppercase;color:var(--fg2)}
+.tagline::after{content:"";display:block;width:2.4rem;height:1px;background:var(--gold);margin:1.4rem auto 0}
+ 
+/* ---------- guide ---------- */
+.guide-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(1.5rem,4vw,4rem);margin-top:clamp(2.5rem,5vw,4rem);align-items:start}
+@media (max-width:899px){.guide-grid{grid-template-columns:minmax(0,1fr)}}
+.steps-top{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1rem}
+.steps-top b{font:400 1.6rem/1 var(--font-display)}
+.steps{position:relative;--pf:0.111}
+.steps::before{content:"";position:absolute;left:1.35rem;top:1.65rem;bottom:1.65rem;width:1px;background:var(--line)}
+.steps::after{content:"";position:absolute;left:1.35rem;top:1.65rem;width:1px;height:calc((100% - 3.3rem)*var(--pf));background:var(--gold);transition:height .8s cubic-bezier(.3,.7,.2,1)}
+.step{position:relative;z-index:1;width:100%;display:flex;align-items:center;gap:1rem;padding:.8rem .6rem;border-radius:.55rem;transition:background .3s}
+button.step:hover{background:var(--chip)}
+.dot{flex:none;width:1.6rem;height:1.6rem;border-radius:50%;border:1px solid var(--line-gold);background:var(--bg);display:grid;place-items:center;color:transparent;transition:background .4s,color .4s,border-color .4s}
+.sec.alt .dot{background:var(--bg2)}
+.dot svg.i{width:.9rem;height:.9rem;stroke-width:2}
+li.done .dot{background:var(--gold);border-color:var(--gold);color:#151515}
+li.current .dot{border-color:var(--gold);box-shadow:0 0 0 .3rem rgba(197,164,109,.2)}
+.num{font:400 .72rem/1 var(--font-body);letter-spacing:.2em;color:var(--fg2);width:1.6rem}
+.t{font:400 1.2rem/1.25 var(--font-display)}
+.st{margin-left:auto;font:400 .64rem/1 var(--font-body);letter-spacing:.2em;text-transform:uppercase;color:var(--gold-ink);opacity:0;transition:opacity .4s;white-space:nowrap}
+li.done .st{opacity:1}
+li.current .t{color:var(--gold-ink)}
+.step.final .t{font-style:italic}
+.steps-msg{margin-top:1.2rem;padding:1rem 1.2rem;border:1px dashed var(--line-gold);border-radius:.55rem;font-size:.95rem;color:var(--fg2);transition:all .6s}
+.steps-msg.win{border-style:solid;color:var(--fg);background:linear-gradient(110deg,rgba(197,164,109,.16),transparent);font:400 1.15rem/1.4 var(--font-display)}
+.steps-msg.win b{color:var(--gold-ink);font-weight:400}
+.tb header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.tb h3{font-size:1.9rem;margin-top:.5rem}
+.lay{padding-top:1.1rem;margin-top:1.1rem;border-top:1px solid var(--line)}
+.lay .mini{display:block;margin-bottom:.55rem}
+.ar-big{font:400 clamp(1.35rem,1.6vw + .9rem,1.9rem)/2 var(--font-ar);text-align:right;color:var(--fg)}
+.tr{font-style:italic;color:var(--fg2)}
+.audio-row{display:flex;align-items:center;gap:1rem}
+.audio-row span{font-size:.82rem;color:var(--fg2);white-space:nowrap}
+.layers{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:.7rem;margin-top:clamp(2rem,4vw,3.5rem)}
+@media (max-width:899px){.layers{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:520px){.layers{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.layers li{padding:.9rem .6rem;text-align:center;border:1px solid var(--line);border-radius:.55rem;font:400 .68rem/1.3 var(--font-body);letter-spacing:.16em;text-transform:uppercase;animation:hl 9s infinite;animation-delay:calc(var(--i)*1.5s)}
+ 
+.wave{display:flex;align-items:center;gap:2px;height:1.6rem;flex:1;min-width:0}
+.wave i{flex:1;max-width:3px;min-width:1px;height:calc(var(--h)*100%);background:var(--gold);border-radius:2px;opacity:.75;transform-origin:center}
+.wave.live i{animation:eq 1.2s ease-in-out infinite;animation-delay:calc(var(--i)*-.09s)}
+ 
+/* ---------- duas ---------- */
+.defs{display:grid;gap:1rem;margin-top:2rem;max-width:35rem}
+.defs div{padding-left:1.1rem;border-left:1px solid var(--gold)}
+.defs b{display:block;font:400 1.1rem/1.3 var(--font-display);margin-bottom:.2rem}
+.defs p{font-size:.98rem;color:var(--fg2)}
+.dua-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.dua-head h3{font-size:1.6rem;margin-top:.45rem}
+.rounds{display:flex;gap:.35rem;align-items:center}
+.rounds i{width:1.1rem;height:.28rem;border-radius:1px;background:var(--line)}
+.rounds i.on{background:var(--gold)}
+.badges{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.2rem}
+.acts{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--line)}
+.pillbtn{display:inline-flex;align-items:center;gap:.55rem;padding:.65rem 1rem;border:1px solid var(--line);border-radius:.45rem;font:400 .72rem/1 var(--font-body);letter-spacing:.14em;text-transform:uppercase;color:var(--fg);transition:border-color .3s,background .3s}
+button.pillbtn:hover{border-color:var(--gold);background:var(--chip)}
+.pillbtn[aria-pressed="true"]{border-color:var(--gold);color:var(--gold-ink)}
+.pillbtn[aria-pressed="true"] svg.i{fill:currentColor}
+.pillbtn.static{flex:1;min-width:9rem;cursor:default}
+ 
+/* ---------- audio ---------- */
+.seg{display:inline-flex;padding:.25rem;border:1px solid var(--line);border-radius:.55rem;gap:.2rem}
+.seg button{padding:.6rem 1.2rem;border-radius:.4rem;font:400 .72rem/1 var(--font-body);letter-spacing:.18em;text-transform:uppercase;color:var(--fg2);transition:background .3s,color .3s}
+.seg button[aria-selected="true"]{background:var(--gold);color:#151515}
+.player-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.player h3{font-size:1.6rem;margin-top:1.4rem}
+.queue{margin-top:1rem}
+.queue li+li{border-top:1px solid var(--line)}
+.q{width:100%;display:flex;align-items:center;gap:1rem;padding:1rem .2rem;transition:padding .3s}
+.q:hover{padding-left:.6rem}
+.q .qi{flex:none;width:2.4rem;height:2.4rem;border-radius:50%;border:1px solid var(--line-gold);display:grid;place-items:center;color:var(--gold-ink)}
+.q .qt{flex:1;min-width:0}
+.q .qt b{display:block;font:400 1.15rem/1.3 var(--font-display)}
+.q .qt small{color:var(--fg2);font-size:.85rem}
+.q .wave{flex:none;width:4.5rem;opacity:0;transition:opacity .4s}
+.q[aria-current="true"] .wave{opacity:1}
+.q[aria-current="true"] .qi{background:var(--gold);color:#151515;border-color:var(--gold)}
+.dlchip{display:inline-flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--fg2)}
+.dlchip svg.i{color:var(--gold-ink)}
+ 
+/* ---------- offline ---------- */
+.dl-head{display:flex;align-items:center;gap:1.6rem}
+.ring{position:relative;flex:none;width:7.2rem;height:7.2rem}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:3}
+.ring .bg{stroke:var(--line)}
+.ring .ring-fg{stroke:var(--gold);stroke-linecap:round;stroke-dasharray:289.03}
+.pct{position:absolute;inset:0;display:grid;place-items:center;font:400 1.6rem/1 var(--font-display)}
+.dl-head h3{font-size:1.5rem}
+.dl-head p{color:var(--fg2);font-size:.95rem;margin-top:.4rem}
+.dl-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.2rem 1.6rem;margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid var(--line)}
+@media (max-width:520px){.dl-list{grid-template-columns:minmax(0,1fr)}}
+.dl-list li{display:flex;align-items:center;gap:.8rem;padding:.55rem 0;color:var(--fg2);transition:color .5s}
+.dl-list .bx{flex:none;width:1.4rem;height:1.4rem;border-radius:50%;border:1px solid var(--line-gold);display:grid;place-items:center;color:transparent;transition:all .5s}
+.dl-list .bx svg.i{width:.8rem;height:.8rem;stroke-width:2.2}
+.dl-list li.ok{color:var(--fg)}
+.dl-list li.ok .bx{background:var(--gold);border-color:var(--gold);color:#151515}
+.replay{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;font:400 .7rem/1 var(--font-body);letter-spacing:.2em;text-transform:uppercase;color:var(--gold-ink)}
+.replay:hover{text-decoration:underline;text-underline-offset:.4em}
+ 
+/* ---------- ready ---------- */
+.asks{display:grid;gap:.7rem;margin-top:2rem;max-width:28rem}
+.asks div{display:flex;justify-content:space-between;gap:1rem;padding:.9rem 1.1rem;border:1px solid var(--line);border-radius:.55rem;background:var(--glass)}
+.asks span{font-size:.85rem;color:var(--fg2)}
+.asks b{font-weight:400;text-align:right}
+.ck-head{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem}
+.ck-head h3{font-size:1.5rem;margin-top:.5rem}
+.big-pct{font:400 3.4rem/.9 var(--font-display);color:var(--gold-ink);font-variant-numeric:tabular-nums}
+.bar{height:.35rem;border-radius:1rem;background:var(--line);margin-top:1.1rem;overflow:hidden}
+.bar i{display:block;height:100%;width:var(--w,0%);background:linear-gradient(90deg,#9c7f4a,var(--gold));border-radius:1rem;transition:width .7s cubic-bezier(.3,.7,.2,1)}
+.ck-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.4rem 2rem;margin-top:1.6rem}
+@media (max-width:560px){.ck-groups{grid-template-columns:minmax(0,1fr)}}
+.ck-groups h4{font:400 .68rem/1 var(--font-body);letter-spacing:.26em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:.5rem}
+.ck{width:100%;display:flex;align-items:center;gap:.8rem;padding:.5rem 0;color:var(--fg);transition:color .3s}
+.ck .bx{flex:none;width:1.25rem;height:1.25rem;border-radius:.3rem;border:1px solid var(--line-gold);display:grid;place-items:center;color:transparent;transition:all .3s}
+.ck .bx svg.i{width:.8rem;height:.8rem;stroke-width:2.4}
+.ck[aria-checked="true"] .bx{background:var(--gold);border-color:var(--gold);color:#151515}
+.ck[aria-checked="true"] span:last-child{color:var(--fg2);text-decoration:line-through;text-decoration-color:rgba(127,100,49,.45)}
+.ck:hover .bx{border-color:var(--gold)}
+ 
+/* ---------- trip ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2rem}
+.chips span{padding:.6rem 1rem;border:1px solid var(--line-gold);border-radius:.45rem;font-size:.92rem;background:var(--glass)}
+.tl-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-bottom:1rem;border-bottom:1px solid var(--line-gold)}
+.tl-head h3{font-size:1.5rem}
+.tl li{display:grid;grid-template-columns:5.4rem minmax(0,1fr);gap:1.2rem;padding:1.1rem 0;border-top:1px solid var(--line)}
+.tl li:first-child{border-top:0}
+.tl time{font:400 .72rem/1.4 var(--font-body);letter-spacing:.22em;text-transform:uppercase;color:var(--gold-ink);padding-top:.4rem}
+.tl h4{font-size:1.25rem;line-height:1.3;margin-bottom:.5rem}
+.tags{display:flex;flex-wrap:wrap;gap:.45rem}
+.tags span{font-size:.78rem;border:1px solid var(--line);padding:.25rem .6rem;border-radius:.35rem;color:var(--fg2)}
+ 
+/* ---------- places ---------- */
+.places-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(1.5rem,4vw,3.5rem);margin-top:clamp(2.5rem,5vw,4rem);align-items:start}
+@media (max-width:899px){.places-grid{grid-template-columns:minmax(0,1fr)}}
+.map{position:relative;aspect-ratio:4/3;border-radius:.7rem;overflow:hidden;background:radial-gradient(90% 90% at 50% 45%,#262523,#0c0c0b);border:1px solid var(--line-gold);box-shadow:var(--shadow)}
+.map svg.m{position:absolute;inset:0;width:100%;height:100%}
+.map .seg{position:absolute;left:1rem;top:1rem;z-index:3;background:rgba(15,15,14,.7);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-color:var(--band-line)}
+.map .seg button{color:#ABA8A0}
+.pin{position:absolute;transform:translate(-50%,-50%);width:1.7rem;height:1.7rem;border-radius:50%;border:1px solid var(--dev-gold);background:rgba(15,15,14,.85);display:grid;place-items:center;z-index:2;transition:transform .3s,background .3s}
+.pin::before{content:"";width:.4rem;height:.4rem;border-radius:50%;background:var(--dev-gold);transition:background .3s}
+.pin:hover{transform:translate(-50%,-50%) scale(1.15)}
+.pin[aria-pressed="true"]{background:var(--dev-gold);z-index:4;transform:translate(-50%,-50%) scale(1.2)}
+.pin[aria-pressed="true"]::before{background:#151515}
+.pin[aria-pressed="true"]::after{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid var(--dev-gold);animation:ping 2s ease-out infinite}
+.pl{position:absolute;left:50%;top:calc(100% + .45rem);transform:translateX(-50%);white-space:nowrap;background:rgba(15,15,14,.92);border:1px solid var(--band-line);border-radius:.35rem;padding:.3rem .6rem;font:400 .72rem/1 var(--font-body);letter-spacing:.08em;color:#F4F1EA;opacity:0;pointer-events:none;transition:opacity .3s}
+.pin[aria-pressed="true"] .pl{opacity:1}
+.layer-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.2rem}
+.layer-chips button{padding:.55rem .9rem;border:1px solid var(--line);border-radius:.4rem;font-size:.85rem;color:var(--fg2);transition:all .3s}
+.layer-chips button:hover{border-color:var(--gold);color:var(--fg)}
+.layer-chips button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#151515}
+.info h3{font-size:1.8rem;margin-top:.8rem}
+.info .body{margin-top:.8rem;color:var(--fg2);min-height:4.8em}
+.info .foot{margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--line);font-size:.85rem;color:var(--fg2)}
+.info.swap .t2{animation:lineup .6s both}
+.qs{margin-top:1.6rem}
+.qs li{display:flex;gap:1rem;align-items:baseline;padding:.75rem 0;border-top:1px solid var(--line);font:400 1.1rem/1.4 var(--font-display)}
+.qs li::before{content:"";flex:none;width:.4rem;height:.4rem;border-radius:50%;background:var(--gold);transform:translateY(-.15rem)}
+ 
+/* ---------- now ---------- */
+.opts{display:grid;gap:.5rem;margin-top:1.4rem}
+.opt{display:flex;align-items:center;gap:.9rem;padding:.9rem 1.1rem;border:1px solid var(--line);border-radius:.55rem;font-size:1rem;color:var(--fg);transition:all .3s}
+.opt::before{content:"";flex:none;width:.9rem;height:.9rem;border-radius:50%;border:1px solid var(--line-gold);transition:all .3s}
+.opt:hover{border-color:var(--gold);background:var(--chip)}
+.opt[aria-checked="true"]{border-color:var(--gold);background:linear-gradient(100deg,rgba(197,164,109,.18),transparent)}
+.opt[aria-checked="true"]::before{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 .22rem rgba(197,164,109,.25)}
+.nowbtn{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.1rem 1.3rem;border-radius:.55rem;background:var(--btn-bg);color:var(--btn-fg);font:500 .8rem/1 var(--font-body);letter-spacing:.2em;text-transform:uppercase}
+.ans{margin-top:1.4rem;padding:1.5rem;border:1px solid var(--line-gold);border-radius:.6rem;background:var(--glass)}
+.ans h3{font-size:1.6rem;margin:.7rem 0 .6rem}
+.ans p.b{color:var(--fg2)}
+.ans .then{display:flex;align-items:center;gap:.8rem;margin-top:1.1rem;padding-top:1rem;border-top:1px solid var(--line);font-size:.95rem}
+.ans.swap>*{animation:lineup .6s both}
+.ans.swap>*:nth-child(2){animation-delay:.06s}.ans.swap>*:nth-child(3){animation-delay:.12s}.ans.swap>*:nth-child(4){animation-delay:.18s}
+ 
+/* ---------- access ---------- */
+.aud{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem;margin-top:clamp(2rem,4vw,3.2rem)}
+@media (max-width:1000px){.aud{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:700px){.aud{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tile{display:block;width:100%;padding:1.2rem 1.2rem 1.3rem;border:1px solid var(--line);border-radius:.6rem;transition:all .4s cubic-bezier(.2,.7,.2,1);background:var(--glass)}
+.tile b{display:block;font:400 1.2rem/1.25 var(--font-display)}
+.tile small{display:block;margin-top:.45rem;font-size:.86rem;line-height:1.5;color:var(--fg2)}
+.tile:hover{transform:translateY(-3px);border-color:var(--gold)}
+.tile[aria-pressed="true"]{border-color:var(--gold);background:linear-gradient(160deg,rgba(197,164,109,.2),transparent)}
+.askcard{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(1.5rem,4vw,4rem);align-items:center;margin-top:clamp(2.5rem,5vw,4rem)}
+@media (max-width:899px){.askcard{grid-template-columns:minmax(0,1fr)}}
+.askcard h3{font-size:clamp(1.7rem,2.4vw + .6rem,2.6rem);line-height:1.15}
+.askcard .a{font-size:1.15rem;color:var(--fg2);max-width:34rem}
+.askcard.swap>*{animation:lineup .6s both}.askcard.swap>*:nth-child(2){animation-delay:.08s}
+ 
+/* ---------- closing ---------- */
+.close{overflow:hidden}
+.big-logo{position:absolute;right:-8%;top:50%;width:min(72rem,115%);transform:translateY(-50%);color:var(--gold);opacity:.2;--sw:.5;pointer-events:none}
+.big-logo path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 3s cubic-bezier(.5,0,.2,1)}
+.big-logo path:nth-child(2){transition-delay:.4s}.big-logo path:nth-child(3){transition-delay:.7s}
+.big-logo.in path,html:not(.js) .big-logo path{stroke-dashoffset:0}
+.close .wrap{position:relative}
+.close-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(2rem,5vw,5rem);align-items:end}
+@media (max-width:899px){.close-grid{grid-template-columns:minmax(0,1fr)}}
+.huge{font-size:clamp(2.4rem,5vw + .6rem,5.2rem);line-height:1.05;margin-top:1.6rem}
+.huge em{font-style:normal;color:var(--gold)}
+.close .btns{margin-top:2.2rem}
+.note{margin-top:1.6rem;font-size:.9rem;color:var(--fg2)}
+.inq h3{font-size:1.4rem;margin-top:.8rem}
+.inq .num2{display:block;font:400 clamp(1.6rem,1.8vw + 1rem,2.3rem)/1.2 var(--font-display);margin:1rem 0 1.4rem;letter-spacing:.02em;word-break:break-word}
+.inq .btns .btn{flex:1 1 11rem}
+footer.site-foot{border-top:1px solid var(--band-line);padding-block:2rem;margin-top:clamp(4rem,8vw,7rem);position:relative}
+.foot-in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.2rem}
+.foot-in .brand .mk{width:2.2rem;--sw:4}
+.foot-in p{font-size:.82rem;color:var(--fg2);max-width:34rem}
+ 
+.toast{position:fixed;left:50%;bottom:calc(1.5rem + env(safe-area-inset-bottom,0px));transform:translate(-50%,2rem);opacity:0;background:#F4F1EA;color:#151515;padding:.8rem 1.3rem;border-radius:.5rem;font:400 .8rem/1 var(--font-body);letter-spacing:.14em;text-transform:uppercase;z-index:60;pointer-events:none;transition:all .4s cubic-bezier(.2,.7,.2,1)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+ 
+@keyframes rise{from{opacity:0;transform:translateY(3rem)}to{opacity:1;transform:none}}
+@keyframes lineup{from{opacity:0;transform:translateY(.7em)}to{opacity:1;transform:none}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-.8em)}}
+@keyframes breathe{0%,100%{opacity:.7;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.07)}}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes eq{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+@keyframes ping{0%{transform:scale(.7);opacity:.8}100%{transform:scale(2.3);opacity:0}}
+@keyframes hl{0%,15%{background:rgba(197,164,109,.18);border-color:var(--gold)}20%,100%{background:transparent;border-color:var(--line)}}
+@keyframes sheen{0%{background-position:130% 0}60%,100%{background-position:-60% 0}}
+ 
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0s!important}
+  .js .reveal{opacity:1;transform:none}
+}
+</style>
+ 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2z"/><path d="M9.2 8.3c.2-.4.5-.4.8-.4h.3c.2 0 .3.1.4.3l.7 1.6c.1.2 0 .4-.1.5l-.5.6c-.1.1-.1.3 0 .4.5.9 1.3 1.6 2.3 2.1.2.1.3 0 .4-.1l.6-.7c.1-.2.3-.2.5-.1l1.5.7c.2.1.3.3.2.5-.1.8-.8 1.3-1.6 1.3-2.5 0-5.3-2.7-5.3-5.2 0-.3.1-.9.3-1.3z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9l-5.2 2.8 1-5.9L3.5 9.7l5.9-.8z"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7.5a2 2 0 0 0 2 2h2.5"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10-6.5z"/></symbol>
+    <symbol id="i-seal" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-orbit" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><rect x="9.8" y="9.8" width="4.4" height="4.4" rx=".6"/></symbol>
+    <symbol id="i-arch" viewBox="0 0 24 24"><path d="M6.5 19.5v-8a5.5 5.5 0 0 1 11 0v8M5 19.5h14"/></symbol>
+    <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 4c3 3.8 5 6.4 5 9a5 5 0 0 1-10 0c0-2.6 2-5.2 5-9z"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4.5 11 12 4.5 19.5 11v8.5h-15z"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6.5C10 5 7 4.8 4.5 5.5v13c2.5-.7 5.500-.5 7.500 1 2-1.500 5-1.700 7.500-1v-13C17 4.800 14 5 12 6.500zM12 6.500v13"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="M12 20.500s6-5.500 6-10.500a6 6 0 0 0-12 0c0 5 6 10.500 6 10.500z"/><circle cx="12" cy="10" r="2.200"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M5 7h14M5 12h14M5 17h14"/></symbol>
+    <symbol id="i-headphones" viewBox="0 0 24 24"><path d="M4.500 15v-3a7.500 7.500 0 0 1 15 0v3"/><rect x="3.500" y="14" width="4" height="6" rx="1.500"/><rect x="16.500" y="14" width="4" height="6" rx="1.500"/></symbol>
+  </defs>
+</svg>
+ 
+<header class="site" id="site">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Darayn, back to top"><span class="mk" data-logo></span><span class="wm">Darayn</span></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#guide">Guide</a><a href="#duas">Duas</a><a href="#offline">Offline</a><a href="#places">Makkah &amp; Madinah</a><a href="#contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <a class="icon-btn" href="https://www.instagram.com/darayn.app/" target="_blank" rel="noopener" aria-label="Darayn on Instagram"><svg class="i"><use href="#i-ig"/></svg></a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch to dark mode" data-mode="light"><svg class="i sun"><use href="#i-sun"/></svg><svg class="i moon"><use href="#i-moon"/></svg></button>
+    </div>
+  </div>
+</header>
+ 
+<main id="top">
+ 
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow"><span class="dot"></span>Launching June 2027<i></i>Free, no subscription</p>
+    <h1 class="h1">
+      <span class="ln" style="--d:.1s"><span>Before Umrah, <em>it prepares you.</em></span></span>
+      <span class="ln" style="--d:.28s"><span>Throughout Umrah, <em>it guides you.</em></span></span>
+      <span class="ln" style="--d:.46s"><span>In Makkah and Madinah, <em>it stays beside you.</em></span></span>
+    </h1>
+    <p class="sub">Darayn is a free companion for Umrah. It walks you through every stage with the duas, the sources and the audio you need, and it keeps working when your signal does not.</p>
+    <div class="btns">
+      <a class="btn primary" href="https://www.instagram.com/darayn.app/" target="_blank" rel="noopener"><svg class="i"><use href="#i-ig"/></svg>Follow the launch</a>
+      <a class="btn ghost" href="#guide"><svg class="i"><use href="#i-down"/></svg>See how it works</a>
+    </div>
+ 
+    <div class="stage" id="stage">
+      <div class="trio" aria-hidden="true">
+        <div class="pw l" style="--dl:.35s"><div class="phone" style="--rot:-2.4deg;--k:-.7"><div class="scr">
+          <div class="sb"><b>9:41</b><span class="sig"><i></i><i></i><i></i></span></div>
+          <div class="pa">
+            <h4>Umrah Journey</h4><p class="s">Your journey, step by step</p>
+            <ul class="rows">
+              <li class="done"><span class="ic"><svg class="i"><use href="#i-check"/></svg></span><span><b>Enter Masjid al-Haram</b><small>Step 4 · Completed</small></span><svg class="i chev"><use href="#i-chev"/></svg></li>
+              <li class="now"><span class="ic"><svg class="i"><use href="#i-orbit"/></svg></span><span><b>Tawaf</b><small>Step 5 · Round 3 of 7</small></span><svg class="i chev"><use href="#i-chev"/></svg></li>
+              <li><span class="ic"><svg class="i"><use href="#i-arch"/></svg></span><span><b>Two Rak‘ahs</b><small>Step 6 · Prayer</small></span><svg class="i chev"><use href="#i-chev"/></svg></li>
+              <li><span class="ic"><svg class="i"><use href="#i-drop"/></svg></span><span><b>Zamzam</b><small>Step 7</small></span><svg class="i chev"><use href="#i-chev"/></svg></li>
+            </ul>
+            <div class="rnd"><small>Now</small><b>Tawaf</b><div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div></div>
+          </div>
+          <div class="tabs"><span class="on"><svg class="i"><use href="#i-home"/></svg>Home</span><span><svg class="i"><use href="#i-book"/></svg>Duas</span><span><svg class="i"><use href="#i-map"/></svg>Map</span><span><svg class="i"><use href="#i-menu"/></svg>More</span></div>
+        </div></div></div>
+ 
+        <div class="pw c" style="--dl:.15s"><div class="phone" style="--k:.5"><div class="scr splash">
+          <div class="sb" style="width:100%"><b>9:41</b><span class="sig"><i></i><i></i><i></i></span></div>
+          <div class="splash-in"><span class="mk draw" data-logo></span><b class="spw">DARAYN</b><span class="spa" lang="ar">دارين</span></div>
+          <div class="sweep"></div>
+        </div></div></div>
+ 
+        <div class="pw r" style="--dl:.5s"><div class="phone" style="--rot:2.4deg;--k:.8"><div class="scr">
+          <div class="sb"><b>9:41</b><span class="sig"><i></i><i></i><i></i></span></div>
+          <div class="pb"><h4>Makkah &amp; Madinah</h4><p class="s">Interactive map</p><div class="pseg"><span class="on">Makkah</span><span>Madinah</span></div></div>
+          <div class="pmap" data-map="21"><span class="lbl">Masjid al-Haram</span><span class="loc"></span></div>
+          <div class="tabs"><span><svg class="i"><use href="#i-home"/></svg>Home</span><span><svg class="i"><use href="#i-book"/></svg>Duas</span><span class="on"><svg class="i"><use href="#i-map"/></svg>Map</span><span><svg class="i"><use href="#i-menu"/></svg>More</span></div>
+        </div></div></div>
+      </div>
+ 
+      <div class="cards">
+        <div class="gc g1"><h3>Your Umrah,<br>step by step</h3><i></i><p>Every ritual. Every stage. One guided journey.</p></div>
+        <div class="gc g2"><h3>Duas at your<br>fingertips</h3><i></i><p>Essential supplications throughout your pilgrimage.</p></div>
+        <div class="gc g3"><h3>Both holy cities,<br>one place</h3><i></i><p>Explore Makkah and Madinah.</p></div>
+        <div class="gc g4"><h3>From preparation<br>to completion</h3><i></i><p>Everything you need, all in one place.</p></div>
+      </div>
+    </div>
+ 
+    <div class="pill"><svg class="i"><use href="#i-seal"/></svg><i></i><span>100% free. No subscription.</span></div>
+  </div>
+</section>
+ 
+<p class="tagline">Same faith. Different cities.<br>One journey.</p>
+ 
+<!-- ================= 1. GUIDE ================= -->
+<section class="sec" id="guide" style="padding-top:clamp(1rem,3vw,2rem)">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="kicker">The Umrah guide</p>
+      <h2>You’re about to begin Umrah.<br>We’ll guide you step by step.</h2>
+      <p class="lede">Not an article to scroll. A guide that knows where you are. Each stage gives you exactly what you need at that moment, and you tap to mark it complete.</p>
+    </div>
+ 
+    <div class="guide-grid">
+      <div class="reveal">
+        <div class="steps-top"><span class="mini">Your journey</span><b id="stepCount">2 of 10</b></div>
+        <ol class="steps" id="steps">
+          <li><button class="step" type="button" aria-pressed="true"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span><span class="num">01</span><span class="t">Prepare for Ihram</span><span class="st">Completed</span></button></li>
+          <li><button class="step" type="button" aria-pressed="true"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span><span class="num">02</span><span class="t">Miqat</span><span class="st">Completed</span></button></li>
+          <li><button class="step" type="button" aria-pressed="false"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span><span class="num">03</span><span class="t">Talbiyah</span><span class="st">Completed</span></button></li>
+          <li><button class="step" type="button" aria-pressed="false"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span><span class="num">04</span><span class="t">Enter Masjid al-Haram</span><span class="st">Completed</span></button></li>
+          <li><button class="step" type="button" aria-pressed="false"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span><span class="num">05</span><span class="t">Tawaf</span><span class="st">Completed</span></button></li>
+          <li><button class="step" type="button" aria-pressed="false"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span><span class="num">06</span><span class="t">Two Rak‘ahs</span><span class="st">Completed</span></button></li>
+          <li><button class="step" type="button" aria-pressed="false"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span><span class="num">07</span><span class="t">Zamzam</span><span class="st">Completed</span></button></li>
+          <li><button class="step" type="button" aria-pressed="false"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span><span class="num">08</span><span class="t">Sa‘i</span><span class="st">Completed</span></button></li>
+          <li><button class="step" type="button" aria-pressed="false"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span><span class="num">09</span><span class="t">Halq / Qasr</span><span class="st">Completed</span></button></li>
+          <li class="final"><div class="step final"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span><span class="num">10</span><span class="t">Umrah complete</span><span class="st">Alhamdulillah</span></div></li>
+        </ol>
+        <p class="steps-msg" id="stepMsg" aria-live="polite">Tap a step to mark it completed.</p>
+      </div>
+ 
+      <article class="card tb reveal" style="--d:.12s">
+        <header>
+          <div><p class="mini">Step 03</p><h3>Talbiyah</h3></div>
+          <span class="badge" id="tbBadge">In progress</span>
+        </header>
+        <div class="lay"><span class="mini">Arabic</span><p class="ar-big" lang="ar" dir="rtl">لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ، لَبَّيْكَ لَا شَرِيكَ لَكَ لَبَّيْكَ، إِنَّ الْحَمْدَ وَالنِّعْمَةَ لَكَ وَالْمُلْكَ، لَا شَرِيكَ لَكَ</p></div>
+        <div class="lay"><span class="mini">Transliteration</span><p class="tr">Labbayk Allāhumma labbayk, labbayk lā sharīka laka labbayk, inna al-ḥamda wa an-ni‘mata laka wal-mulk, lā sharīka lak.</p></div>
+        <div class="lay"><span class="mini">Translation</span><p>Here I am, O Allah, here I am. Here I am, You have no partner, here I am. Truly all praise, favour and sovereignty belong to You. You have no partner.</p></div>
+        <div class="lay"><span class="mini">Audio</span><div class="audio-row"><svg class="i" style="color:var(--gold-ink)"><use href="#i-headphones"/></svg><div class="wave live" data-wave="34"></div><span>Works offline</span></div></div>
+        <div class="lay"><span class="mini">Instructions</span><p>Begin once you have made your intention for Umrah, and say it often as you travel to the Haram.</p></div>
+      </article>
+    </div>
+ 
+    <ul class="layers reveal" aria-label="What every step contains">
+      <li style="--i:0">Arabic</li><li style="--i:1">Transliteration</li><li style="--i:2">Translation</li><li style="--i:3">Audio</li><li style="--i:4">Instructions</li><li style="--i:5">Common mistakes</li>
+    </ul>
+  </div>
+</section>
+ 
+<!-- ================= 2. DUAS ================= -->
+<section class="sec alt" id="duas">
+  <div class="wrap split">
+    <div class="reveal">
+      <p class="kicker">Dua companion</p>
+      <h2>Know what is established. Ask in your own words.</h2>
+      <p class="lede">Open Darayn during Tawaf and find supplications that are authentically reported, each with where it comes from. We do not assign an invented dua to every circuit, so you never feel you are missing a required wording.</p>
+      <div class="defs">
+        <div><b>Authentically reported</b><p>From the Qur’an or reported from the Prophet <span lang="ar" style="font-family:var(--font-ar)">ﷺ</span>, with the source shown beside it.</p></div>
+        <div><b>General dua</b><p>Suggestions you can make in your own words. Always labelled, never presented as the required words for a circuit.</p></div>
+      </div>
+    </div>
+    <article class="card reveal" style="--d:.12s">
+      <div class="dua-head">
+        <div><p class="mini">Tawaf</p><h3>Round 3 of 7</h3></div>
+        <div class="rounds" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="badges"><span class="badge on">Authentically reported</span><span class="badge">Qur’an 2:201</span></div>
+      <p class="ar-big" lang="ar" dir="rtl" style="margin-top:1.4rem">رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ</p>
+      <p class="tr" style="margin-top:.8rem">Rabbanā ātinā fid-dunyā ḥasanatan wa fil-ākhirati ḥasanatan wa qinā ‘adhāban-nār.</p>
+      <p style="margin-top:.8rem">Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.</p>
+      <div class="acts">
+        <span class="pillbtn static"><svg class="i"><use href="#i-headphones"/></svg><span class="wave live" data-wave="22" style="height:1.1rem"></span></span>
+        <button class="pillbtn" id="saveDua" type="button" aria-pressed="false"><svg class="i"><use href="#i-star"/></svg>Save</button>
+        <button class="pillbtn" id="copyDua" type="button"><svg class="i"><use href="#i-copy"/></svg>Copy</button>
+      </div>
+    </article>
+  </div>
+</section>
+ 
+<!-- ================= 3. AUDIO ================= -->
+<section class="sec" id="audio">
+  <div class="wrap split flip">
+    <div class="reveal">
+      <p class="kicker">Audio mode</p>
+      <h2>Put the phone away. Keep the guidance.</h2>
+      <p class="lede">You do not have to stare at a screen while you worship. Tawaf and Sa‘i each have an audio mode: the Talbiyah, relevant supplications, instructions and gentle reminders, with your phone in your pocket. Download it all before you go.</p>
+    </div>
+    <article class="card player reveal" style="--d:.12s">
+      <div class="player-head">
+        <div class="seg" role="tablist" aria-label="Audio mode">
+          <button type="button" role="tab" aria-selected="true" data-mode="Tawaf">Tawaf</button>
+          <button type="button" role="tab" aria-selected="false" data-mode="Sa‘i">Sa‘i</button>
+        </div>
+        <span class="dlchip"><svg class="i"><use href="#i-check"/></svg>Downloaded for offline</span>
+      </div>
+      <h3 id="playerTitle">Tawaf audio mode</h3>
+      <ul class="queue" id="queue">
+        <li><button class="q" type="button" aria-current="true"><span class="qi"><svg class="i"><use href="#i-play"/></svg></span><span class="qt"><b>Talbiyah</b><small>Recited, with the pace to follow</small></span><span class="wave live" data-wave="16"></span></button></li>
+        <li><button class="q" type="button" aria-current="false"><span class="qi"><svg class="i"><use href="#i-play"/></svg></span><span class="qt"><b>Relevant supplications</b><small>Authentic, then general duas</small></span><span class="wave live" data-wave="16"></span></button></li>
+        <li><button class="q" type="button" aria-current="false"><span class="qi"><svg class="i"><use href="#i-play"/></svg></span><span class="qt"><b>Instructions</b><small>What to do, in plain words</small></span><span class="wave live" data-wave="16"></span></button></li>
+        <li><button class="q" type="button" aria-current="false"><span class="qi"><svg class="i"><use href="#i-play"/></svg></span><span class="qt"><b>Reminders</b><small>Gentle, and only when useful</small></span><span class="wave live" data-wave="16"></span></button></li>
+      </ul>
+    </article>
+  </div>
+</section>
+ 
+<!-- ================= 4. OFFLINE ================= -->
+<section class="sec band" id="offline">
+  <div class="wrap split">
+    <div class="reveal">
+      <p class="kicker">Full offline mode</p>
+      <h2>Everything you need. Even offline.</h2>
+      <p class="lede">Signal in the Haramayn can be weak. Download your Umrah Journey once, before you leave, and the guide keeps working with no internet at all.</p>
+    </div>
+    <article class="card reveal" id="dl" style="--d:.12s">
+      <div class="dl-head">
+        <div class="ring"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="bg" cx="50" cy="50" r="46"/><circle class="ring-fg" cx="50" cy="50" r="46"/></svg><span class="pct">100%</span></div>
+        <div><h3>Download your Umrah Journey</h3><p id="dlStatus" aria-live="polite">Ready for offline</p></div>
+      </div>
+      <ul class="dl-list">
+        <li class="ok"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span>Umrah guide</li>
+        <li class="ok"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span>Duas</li>
+        <li class="ok"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span>Audio</li>
+        <li class="ok"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span>Makkah guide</li>
+        <li class="ok"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span>Madinah guide</li>
+        <li class="ok"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span>Maps</li>
+        <li class="ok"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span>Emergency information</li>
+        <li class="ok"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span>Arabic phrases</li>
+      </ul>
+      <button class="replay" id="replay" type="button">Replay download</button>
+    </article>
+  </div>
+</section>
+ 
+<!-- ================= 5. READY ================= -->
+<section class="sec" id="ready">
+  <div class="wrap split">
+    <div class="reveal">
+      <p class="kicker">Get ready for Umrah</p>
+      <h2>Be ready before you leave.</h2>
+      <p class="lede">Tell Darayn when you are going, where you are leaving from and how long you are staying. It builds your preparation and keeps score, so you can see how close you are.</p>
+      <div class="asks">
+        <div><span>When are you going?</span><b>March 10</b></div>
+        <div><span>Where are you travelling from?</span><b>Toronto</b></div>
+        <div><span>How long are you staying?</span><b>9 nights</b></div>
+      </div>
+    </div>
+    <article class="card reveal" style="--d:.12s">
+      <div class="ck-head">
+        <div><p class="mini">Example checklist</p><h3>Your Umrah checklist</h3></div>
+        <div class="big-pct" id="ckPct" aria-live="polite">82%</div>
+      </div>
+      <div class="bar" role="progressbar" aria-label="Preparation progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="82" id="ckBar"><i style="--w:82%"></i></div>
+      <div class="ck-groups" id="ckGroups">
+        <div><h4>Documents</h4>
+          <button class="ck" type="button" role="checkbox" aria-checked="true"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span>Passport</span></button>
+          <button class="ck" type="button" role="checkbox" aria-checked="true"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span>Visa</span></button>
+          <button class="ck" type="button" role="checkbox" aria-checked="true"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span>Flights</span></button>
+          <button class="ck" type="button" role="checkbox" aria-checked="true"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span>Hotel</span></button>
+          <button class="ck" type="button" role="checkbox" aria-checked="true"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span>Insurance</span></button>
+          <button class="ck" type="button" role="checkbox" aria-checked="true"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span>Vaccination records</span></button>
+        </div>
+        <div><h4>Ihram</h4>
+          <button class="ck" type="button" role="checkbox" aria-checked="true"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span>Ihram</span></button>
+          <button class="ck" type="button" role="checkbox" aria-checked="true"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span>Belt</span></button>
+          <button class="ck" type="button" role="checkbox" aria-checked="true"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span>Sandals</span></button>
+          <button class="ck" type="button" role="checkbox" aria-checked="true"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span>Unscented toiletries</span></button>
+          <h4 style="margin-top:1.2rem">Health</h4>
+          <button class="ck" type="button" role="checkbox" aria-checked="false"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span>Medication</span></button>
+          <button class="ck" type="button" role="checkbox" aria-checked="true"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span>Essentials</span></button>
+          <button class="ck" type="button" role="checkbox" aria-checked="true"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span>Hand sanitiser</span></button>
+        </div>
+        <div style="grid-column:1/-1"><h4>Technology</h4>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(10rem,1fr));gap:0 1.5rem">
+            <button class="ck" type="button" role="checkbox" aria-checked="true"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span>SIM / eSIM</span></button>
+            <button class="ck" type="button" role="checkbox" aria-checked="true"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span>Charger</span></button>
+            <button class="ck" type="button" role="checkbox" aria-checked="false"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span>Power bank</span></button>
+            <button class="ck" type="button" role="checkbox" aria-checked="false"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span>Offline pack</span></button>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+ 
+<!-- ================= 6. TRIP ================= -->
+<section class="sec alt" id="trip">
+  <div class="wrap split flip">
+    <div class="reveal">
+      <p class="kicker">Personal trip planner</p>
+      <h2>Enter your trip. Get your itinerary.</h2>
+      <p class="lede">Add your route, your dates and how long you are spending in each city. Darayn lays out your days, and you can change any of it. These are suggestions, never a schedule you must keep.</p>
+      <div class="chips"><span>Toronto → Jeddah</span><span>March 10–19</span><span>4 days Makkah</span><span>5 days Madinah</span></div>
+    </div>
+    <article class="card reveal" style="--d:.12s">
+      <div class="tl-head"><h3>Toronto → Jeddah</h3><span class="badge">Example trip</span></div>
+      <ol class="tl">
+        <li><time>Mar 10</time><div><h4>Arrival day</h4><div class="tags"><span>Arrive</span><span>Hotel</span><span>Prepare for Umrah</span></div></div></li>
+        <li><time>Mar 11</time><div><h4>Umrah</h4><div class="tags"><span>Umrah</span><span>Worship</span></div></div></li>
+        <li><time>Mar 12–13</time><div><h4>Open days in Makkah</h4><div class="tags"><span>Worship</span><span>Rest</span><span>Your own plans</span></div></div></li>
+        <li><time>Mar 14</time><div><h4>Makkah → Madinah</h4><div class="tags"><span>Check out</span><span>Transport</span><span>Hotel</span></div></div></li>
+        <li><time>Mar 15–18</time><div><h4>Madinah</h4><div class="tags"><span>Masjid an-Nabawi</span><span>Visits</span><span>Rest</span></div></div></li>
+        <li><time>Mar 19</time><div><h4>Fly home</h4><div class="tags"><span>Flight</span><span>Duas for the journey home</span></div></div></li>
+      </ol>
+    </article>
+  </div>
+</section>
+ 
+<!-- ================= 7 + 8. PLACES ================= -->
+<section class="sec" id="places">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="kicker">Makkah &amp; Madinah</p>
+      <h2>Two cities. One map made for pilgrims.</h2>
+      <p class="lede">Not a map slapped into an app. Gates, Zamzam, the Miqat, hospitals and pharmacies in Makkah. The Prophet’s Mosque, the Rawdah, Baqi, Quba and Uhud in Madinah. Tap a place and learn what it is.</p>
+    </div>
+    <div class="places-grid">
+      <div class="reveal">
+        <div class="map" id="map">
+          <div class="seg" role="tablist" aria-label="City">
+            <button type="button" role="tab" aria-selected="true" data-city="makkah">Makkah</button>
+            <button type="button" role="tab" aria-selected="false" data-city="madinah">Madinah</button>
+          </div>
+          <div id="mapArt"></div>
+          <div id="pins"></div>
+        </div>
+        <div class="layer-chips" id="chips"></div>
+      </div>
+      <div class="reveal" style="--d:.12s">
+        <article class="card info" id="info">
+          <p class="mini">What is this?</p>
+          <h3 class="t2" id="infoT">Masjid al-Haram</h3>
+          <p class="body t2" id="infoB">The Sacred Mosque around the Kaaba, where Tawaf and Sa‘i are performed.</p>
+          <p class="foot">Every place lists what is established and where it comes from, so popular claims never pass as fact.</p>
+        </article>
+        <ul class="qs" aria-label="What every place answers">
+          <li>What is it?</li><li>Why is it significant?</li><li>What should I know?</li><li>What should I do?</li><li>What should I avoid?</li><li>What is authentic?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ================= 9. NOW ================= -->
+<section class="sec alt" id="now">
+  <div class="wrap split flip">
+    <div class="reveal">
+      <p class="kicker">What do I do now?</p>
+      <h2>Lost your place? Ask Darayn.</h2>
+      <p class="lede">Halfway through, it is easy to wonder what comes next. Tap one button, say where you are, and get the exact next step. No more “wait, what am I supposed to do now?”</p>
+    </div>
+    <div class="reveal" style="--d:.12s">
+      <div class="nowbtn"><span>What do I do now?</span><svg class="i"><use href="#i-chev"/></svg></div>
+      <div class="opts" id="opts" role="radiogroup" aria-label="Where are you in your journey?"></div>
+      <div class="ans" id="ans" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ================= 10. ACCESS ================= -->
+<section class="sec" id="access">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="kicker">For every pilgrim</p>
+      <h2>Umrah looks different for every family.</h2>
+      <p class="lede">A wheelchair user, an elderly parent, a family with young children and someone travelling alone all need different things. Darayn plans for each of them.</p>
+    </div>
+    <div class="askcard reveal" id="askcard">
+      <h3 id="askQ">Travelling with an elderly parent?</h3>
+      <p class="a" id="askA">Plan a gentler pace, build in rest every day, and know where to find help and accessible routes before you need them.</p>
+    </div>
+    <div class="aud reveal" id="aud">
+      <button class="tile" type="button" aria-pressed="true" data-q="Travelling with an elderly parent?" data-a="Plan a gentler pace, build in rest every day, and know where to find help and accessible routes before you need them."><b>Elderly pilgrims</b><small>A gentler pace, with rest planned in.</small></button>
+      <button class="tile" type="button" aria-pressed="false" data-q="Using a wheelchair?" data-a="See which routes and areas are accessible, and what to arrange before you travel, so nothing is a surprise on the day."><b>Wheelchair users</b><small>Accessible routes and what to arrange ahead.</small></button>
+      <button class="tile" type="button" aria-pressed="false" data-q="Travelling as a family?" data-a="Agree a meeting point, keep everyone’s details in one place, and have a plan ready if someone gets separated."><b>Families</b><small>Keep everyone together, with a plan.</small></button>
+      <button class="tile" type="button" aria-pressed="false" data-q="Bringing children?" data-a="Practical notes on pace, rest and keeping little ones safe in a crowd, so you can focus on your worship."><b>Children</b><small>Practical notes for little ones.</small></button>
+      <button class="tile" type="button" aria-pressed="false" data-q="Travelling as a woman?" data-a="Clear, sensitive guidance on what to prepare, what to expect and what to ask if you are unsure."><b>Women</b><small>Clear, sensitive guidance.</small></button>
+      <button class="tile" type="button" aria-pressed="false" data-q="Is this your first Umrah?" data-a="Start at the very beginning. Nothing is assumed, and every step is explained in plain words."><b>First-time pilgrims</b><small>Start here. Nothing is assumed.</small></button>
+      <button class="tile" type="button" aria-pressed="false" data-q="Travelling alone?" data-a="Stay oriented, keep emergency contacts to hand, and know who to call and where to go if you need help."><b>Solo travellers</b><small>Stay oriented and know who to call.</small></button>
+    </div>
+  </div>
+</section>
+ 
+<!-- ================= CLOSING ================= -->
+<section class="sec band close" id="contact">
+  <span class="big-logo" id="bigLogo" data-logo aria-hidden="true"></span>
+  <div class="wrap">
+    <div class="close-grid">
+      <div class="reveal">
+        <p class="kicker">Launching June 2027</p>
+        <h2 class="huge">100% free.<br><em>No subscription.</em></h2>
+        <p class="lede">Darayn is free to download and free to use, with a full premium experience. Follow along for the launch.</p>
+        <div class="btns">
+          <a class="btn primary" href="https://www.instagram.com/darayn.app/" target="_blank" rel="noopener"><svg class="i"><use href="#i-ig"/></svg>Follow @darayn.app</a>
+        </div>
+        <p class="note">Umrah first. Hajj guidance follows ahead of the 2028 season.</p>
+      </div>
+      <article class="card inq reveal" style="--d:.12s">
+        <p class="mini">Partnerships &amp; inquiries</p>
+        <h3>Message us on WhatsApp</h3>
+        <span class="num2" id="waNum">+1 416 518 4578</span>
+        <div class="btns">
+          <a class="btn primary" href="https://wa.me/14165184578" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>Open WhatsApp</a>
+          <button class="btn ghost" id="copyNum" type="button"><svg class="i"><use href="#i-copy"/></svg>Copy number</button>
+        </div>
+      </article>
+    </div>
+ 
+    <footer class="site-foot">
+      <div class="foot-in">
+        <a class="brand" href="#top" aria-label="Darayn, back to top"><span class="mk" data-logo></span><span class="wm">Darayn</span></a>
+        <p>Two cities. One journey. Screens shown are previews of the app in development. © 2026 Darayn.</p>
+        <a class="icon-btn" href="https://www.instagram.com/darayn.app/" target="_blank" rel="noopener" aria-label="Darayn on Instagram"><svg class="i"><use href="#i-ig"/></svg></a>
+      </div>
+    </footer>
+  </div>
+</section>
+ 
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+ 
+<script>
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function(s,r){return (r||document).querySelector(s)};
+  var $$ = function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+ 
+  /* ---- logo: two arches joined by one path ---- */
+  var LOGO = '<svg class="logo" viewBox="-3 -3 126 86" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+    + '<path pathLength="1" d="M2 77V31C2 18 14 7 29 1.5C43 7 55 19 55 32V38L62 41"/>'
+    + '<path pathLength="1" d="M2 77C27 77 52 63 62 41C82 43 95 54 95.5 66C95.8 71.5 95.3 75.5 94 79"/>'
+    + '<path pathLength="1" d="M63 37V31C63 18 76 7 91 1.5C106 7 118 18 118 31V79"/></svg>';
+  $$('[data-logo]').forEach(function(el){ el.innerHTML = LOGO; });
+ 
+  /* ---- decorative map ---- */
+  function mapSVG(seed, kind){
+    var s = seed, cx = 200, cy = 150, out = '';
+    function r(){ s = (s*1664525 + 1013904223) % 4294967296; return s/4294967296; }
+    out += '<g fill="rgba(197,164,109,.08)">';
+    for(var i=0;i<90;i++){
+      var a = r()*6.283, d = 42 + r()*230, x = cx + Math.cos(a)*d*1.3, y = cy + Math.sin(a)*d*.9;
+      var w = 6 + r()*16, h = 5 + r()*12;
+      out += '<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="1" transform="rotate('+(a*57.3+90).toFixed(0)+' '+x.toFixed(1)+' '+y.toFixed(1)+')"/>';
+    }
+    out += '</g><g fill="none" stroke="rgba(197,164,109,.3)" stroke-width=".8" stroke-linecap="round">';
+    for(var j=0;j<18;j++){
+      var b = j/18*6.283 + r()*.25, d1 = 34 + r()*22, d2 = 120 + r()*80, d3 = 230 + r()*60, kink = (r()-.5)*.35;
+      var x1 = cx+Math.cos(b)*d1*1.3, y1 = cy+Math.sin(b)*d1*.9;
+      var x2 = cx+Math.cos(b+kink)*d2*1.3, y2 = cy+Math.sin(b+kink)*d2*.9;
+      var x3 = cx+Math.cos(b+kink*1.6)*d3*1.3, y3 = cy+Math.sin(b+kink*1.6)*d3*.9;
+      out += '<path d="M'+x1.toFixed(1)+' '+y1.toFixed(1)+'L'+x2.toFixed(1)+' '+y2.toFixed(1)+'L'+x3.toFixed(1)+' '+y3.toFixed(1)+'"/>';
+    }
+    out += '</g><g fill="none" stroke="rgba(197,164,109,.22)" stroke-width=".8" stroke-dasharray="2 4">';
+    [34,58,88,126,170].forEach(function(rr){ out += '<ellipse cx="'+cx+'" cy="'+cy+'" rx="'+(rr*1.3)+'" ry="'+(rr*.9)+'"/>'; });
+    out += '</g>';
+    if(kind === 'madinah'){
+      out += '<circle cx="200" cy="150" r="13" fill="#0c0c0b" stroke="#C5A46D" stroke-width="1.3"/><path d="M193 155a7 7 0 0 1 14 0z" fill="none" stroke="#C5A46D" stroke-width="1.2"/>';
+    } else {
+      out += '<rect x="187" y="137" width="26" height="26" rx="2" fill="#0a0a09" stroke="#C5A46D" stroke-width="1.4"/><path d="M187 145h26" stroke="#C5A46D" stroke-width="1.2"/><circle cx="200" cy="150" r="42" fill="none" stroke="rgba(197,164,109,.5)" stroke-width=".9"/>';
+    }
+    return '<svg class="m" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">'+out+'</svg>';
+  }
+  $$('[data-map]').forEach(function(el){ el.insertAdjacentHTML('afterbegin', mapSVG(+el.getAttribute('data-map'),'makkah')); });
+ 
+  /* ---- waveform bars ---- */
+  $$('[data-wave]').forEach(function(w){
+    var n = +w.getAttribute('data-wave'), h = '';
+    for(var i=0;i<n;i++){ var v = .28 + Math.abs(Math.sin(i*1.7)*Math.cos(i*.45))*.72; h += '<i style="--h:'+v.toFixed(2)+';--i:'+i+'"></i>'; }
+    w.innerHTML = h;
+  });
+ 
+  /* ---- theme toggle ---- */
+  var root = document.documentElement, tbtn = $('#theme');
+  function effective(){ var t = root.getAttribute('data-theme'); if(t==='dark'||t==='light') return t; return (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+  function syncBtn(){ var m = effective(); tbtn.setAttribute('data-mode', m); tbtn.setAttribute('aria-label', m==='dark' ? 'Switch to light mode' : 'Switch to dark mode'); }
+  tbtn.addEventListener('click', function(){
+    var next = effective()==='dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try{ localStorage.setItem('darayn-theme', next); }catch(e){}
+    syncBtn();
+  });
+  if(window.matchMedia){ var mq = matchMedia('(prefers-color-scheme: dark)'); if(mq.addEventListener) mq.addEventListener('change', syncBtn); }
+  syncBtn();
+ 
+  /* ---- header shadow ---- */
+  var site = $('#site');
+  function onScroll(){ site.classList.toggle('scrolled', window.scrollY > 12); }
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+ 
+  /* ---- reveal on scroll ---- */
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{threshold:.1,rootMargin:'0px 0px -5% 0px'});
+    $$('.reveal').forEach(function(el){ io.observe(el); });
+    var io2 = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io2.unobserve(e.target); } }); },{threshold:.2});
+    io2.observe($('#bigLogo'));
+  } else { $('#bigLogo').classList.add('in'); }
+ 
+  /* ---- hero parallax ---- */
+  var stage = $('#stage');
+  if(!reduce && window.matchMedia && matchMedia('(hover:hover) and (pointer:fine)').matches){
+    stage.addEventListener('pointermove', function(e){
+      var b = stage.getBoundingClientRect();
+      stage.style.setProperty('--mx', (((e.clientX-b.left)/b.width)*2-1).toFixed(3));
+      stage.style.setProperty('--my', (((e.clientY-b.top)/b.height)*2-1).toFixed(3));
+    });
+    stage.addEventListener('pointerleave', function(){ stage.style.setProperty('--mx',0); stage.style.setProperty('--my',0); });
+  }
+ 
+  /* ---- toast + copy ---- */
+  var toastEl = $('#toast'), tt;
+  function toast(m){ toastEl.textContent = m; toastEl.classList.add('show'); clearTimeout(tt); tt = setTimeout(function(){ toastEl.classList.remove('show'); }, 1800); }
+  function copyText(text){
+    function fallback(){
+      var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly',''); ta.style.cssText='position:fixed;opacity:0;top:0;left:0';
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy') ? toast('Copied') : toast('Select the text to copy'); }catch(e){ toast('Select the text to copy'); }
+      document.body.removeChild(ta);
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(function(){ toast('Copied'); }, fallback); } else { fallback(); }
+  }
+  $('#copyNum').addEventListener('click', function(){ copyText('+14165184578'); });
+  $('#copyDua').addEventListener('click', function(){
+    copyText('رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ\nRabbanā ātinā fid-dunyā ḥasanatan wa fil-ākhirati ḥasanatan wa qinā ‘adhāban-nār.\nOur Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.');
+  });
+  $('#saveDua').addEventListener('click', function(){
+    var on = this.getAttribute('aria-pressed') !== 'true';
+    this.setAttribute('aria-pressed', on); toast(on ? 'Saved' : 'Removed');
+  });
+ 
+  /* ---- guide stepper ---- */
+  (function(){
+    var ol = $('#steps'), lis = $$('li', ol), state = [true,true,false,false,false,false,false,false,false];
+    var msg = $('#stepMsg'), cnt = $('#stepCount'), badge = $('#tbBadge');
+    function render(){
+      var n = state.filter(Boolean).length, all = n === 9, first = state.indexOf(false), last = all ? 9 : state.lastIndexOf(true);
+      lis.forEach(function(li,i){
+        var done = i < 9 ? state[i] : all;
+        li.classList.toggle('done', done);
+        li.classList.toggle('current', !done && i === first);
+        var b = $('button', li); if(b) b.setAttribute('aria-pressed', String(state[i]));
+      });
+      ol.style.setProperty('--pf', (Math.max(0,last)/9).toFixed(3));
+      cnt.textContent = (all ? 10 : n) + ' of 10';
+      msg.classList.toggle('win', all);
+      msg.innerHTML = all ? '<b>Alhamdulillah.</b> Your Umrah is complete.' : 'Tap a step to mark it completed.';
+      badge.textContent = state[2] ? 'Completed' : 'In progress';
+      badge.classList.toggle('on', state[2]);
+    }
+    lis.forEach(function(li,i){ var b = $('button', li); if(b) b.addEventListener('click', function(){ state[i] = !state[i]; render(); }); });
+    render();
+  })();
+ 
+  /* ---- audio player ---- */
+  (function(){
+    var qs = $$('.q'), title = $('#playerTitle');
+    qs.forEach(function(q){ q.addEventListener('click', function(){ qs.forEach(function(o){ o.setAttribute('aria-current', o===q ? 'true' : 'false'); }); }); });
+    $$('.seg button', $('#audio')).forEach(function(b){
+      b.addEventListener('click', function(){
+        $$('.seg button', $('#audio')).forEach(function(o){ o.setAttribute('aria-selected', o===b ? 'true' : 'false'); });
+        title.textContent = b.getAttribute('data-mode') + ' audio mode';
+      });
+    });
+  })();
+ 
+  /* ---- offline download ---- */
+  (function(){
+    var box = $('#dl'), items = $$('.dl-list li', box), ring = $('.ring-fg', box), num = $('.pct', box), status = $('#dlStatus');
+    var C = 2*Math.PI*46, raf = 0;
+    function set(p){
+      ring.style.strokeDashoffset = (C*(1-p)).toFixed(2);
+      num.textContent = Math.round(p*100) + '%';
+      items.forEach(function(li,i){ li.classList.toggle('ok', p >= (i+1)/items.length - .001); });
+      status.textContent = p >= 1 ? 'Ready for offline' : 'Downloading…';
+    }
+    function run(){
+      cancelAnimationFrame(raf);
+      if(reduce){ set(1); return; }
+      var t0 = performance.now(), D = 3600;
+      set(0);
+      (function f(t){ var p = Math.min(1,(t-t0)/D), e = 1-Math.pow(1-p,2.2); set(e); if(p<1) raf = requestAnimationFrame(f); })(t0);
+    }
+    ring.style.transition = 'none'; set(1);
+    if('IntersectionObserver' in window && !reduce){
+      var started = false;
+      var ioDl = new IntersectionObserver(function(es){ if(es[0].isIntersecting && !started){ started = true; ioDl.disconnect(); run(); } },{threshold:.4});
+      ioDl.observe(box);
+    }
+    $('#replay').addEventListener('click', run);
+  })();
+ 
+  /* ---- checklist ---- */
+  (function(){
+    var cks = $$('.ck'), pct = $('#ckPct'), bar = $('#ckBar'), fill = $('i', bar);
+    function upd(){
+      var n = cks.filter(function(c){ return c.getAttribute('aria-checked') === 'true'; }).length;
+      var p = Math.round(n/cks.length*100);
+      pct.textContent = p + '%'; fill.style.setProperty('--w', p + '%'); bar.setAttribute('aria-valuenow', p);
+    }
+    cks.forEach(function(c){ c.addEventListener('click', function(){ c.setAttribute('aria-checked', c.getAttribute('aria-checked') === 'true' ? 'false' : 'true'); upd(); }); });
+    upd();
+  })();
+ 
+  /* ---- places ---- */
+  (function(){
+    var DATA = {
+      makkah:{seed:11, items:[
+        {k:'Masjid al-Haram',x:50,y:50,t:'The Sacred Mosque around the Kaaba, where Tawaf and Sa‘i are performed.'},
+        {k:'Gates',x:50,y:29,t:'Every gate has a number. Note yours before you go in. It is the easiest way to find your group again.'},
+        {k:'Zamzam',x:61,y:60,t:'Pilgrims drink Zamzam after Tawaf. Water points are available in and around the mosque.'},
+        {k:'Mosques',x:23,y:38,t:'Other mosques in the city, each with a short, sourced history and what is established about it.'},
+        {k:'Miqat',x:11,y:17,t:'The boundaries where pilgrims enter Ihram. Which Miqat applies depends on the direction you travel from.'},
+        {k:'Hospitals',x:80,y:70,t:'Nearby hospitals and clinics, saved so you can find them with no signal.'},
+        {k:'Pharmacies',x:28,y:74,t:'Pharmacies close to the Haram and to your hotel.'},
+        {k:'Transport',x:86,y:31,t:'Taxis, buses and the routes between the Haram and your hotel.'},
+        {k:'Food',x:71,y:41,t:'Places to eat near the Haram.'},
+        {k:'Hotels',x:37,y:61,t:'Pin your hotel so you can always find your way back.'}]},
+      madinah:{seed:47, items:[
+        {k:'Masjid an-Nabawi',x:50,y:47,t:'The Prophet’s Mosque, built by the Prophet after his migration to Madinah.'},
+        {k:'Rawdah',x:44,y:57,t:'The area between the Prophet’s house and his pulpit. Access is managed, so check current arrangements before you go.'},
+        {k:'Baqi',x:63,y:56,t:'The cemetery beside the mosque where many of the Companions are buried.'},
+        {k:'Quba',x:24,y:76,t:'The first mosque built in Islam, on the edge of Madinah.'},
+        {k:'Uhud',x:81,y:18,t:'The mountain north of Madinah and the site of the Battle of Uhud.'}]}
+    };
+    var city = 'makkah', sel = 0;
+    var art = $('#mapArt'), pins = $('#pins'), chips = $('#chips'), infoT = $('#infoT'), infoB = $('#infoB'), info = $('#info');
+    function draw(){
+      var d = DATA[city];
+      art.innerHTML = mapSVG(d.seed, city);
+      pins.innerHTML = ''; chips.innerHTML = '';
+      d.items.forEach(function(it,i){
+        var p = document.createElement('button'); p.type='button'; p.className='pin'; p.style.left = it.x+'%'; p.style.top = it.y+'%';
+        p.setAttribute('aria-label', it.k); p.setAttribute('aria-pressed', 'false'); p.innerHTML = '<span class="pl"></span>'; p.firstChild.textContent = it.k;
+        p.addEventListener('click', function(){ pick(i); }); pins.appendChild(p);
+        var c = document.createElement('button'); c.type='button'; c.textContent = it.k; c.setAttribute('aria-pressed','false');
+        c.addEventListener('click', function(){ pick(i); }); chips.appendChild(c);
+      });
+      pick(0, true);
+    }
+    function pick(i, quiet){
+      sel = i; var it = DATA[city].items[i];
+      $$('.pin', pins).forEach(function(p,j){ p.setAttribute('aria-pressed', j===i ? 'true' : 'false'); });
+      $$('button', chips).forEach(function(c,j){ c.setAttribute('aria-pressed', j===i ? 'true' : 'false'); });
+      infoT.textContent = it.k; infoB.textContent = it.t;
+      if(!quiet && !reduce){ [infoT, infoB].forEach(function(el){ el.style.animation='none'; void el.offsetWidth; el.style.animation=''; }); }
+    }
+    $$('.seg button', $('#map')).forEach(function(b){
+      b.addEventListener('click', function(){
+        city = b.getAttribute('data-city');
+        $$('.seg button', $('#map')).forEach(function(o){ o.setAttribute('aria-selected', o===b ? 'true' : 'false'); });
+        draw();
+      });
+    });
+    draw();
+  })();
+ 
+  /* ---- what do I do now ---- */
+  (function(){
+    var S = [
+      {l:'I’m preparing for Umrah', t:'Get ready at home', b:'Check your documents, pack your Ihram, and download your offline pack before you fly.', n:'Travel day'},
+      {l:'I’m at the Haram', t:'Enter and find the Black Stone', b:'Enter calmly, then make your way to the Black Stone corner, where Tawaf begins.', n:'Tawaf'},
+      {l:'I’m doing Tawaf', t:'Keep the Kaaba on your left', b:'Seven circuits. Each one begins and ends at the Black Stone. Tap the counter as you finish each.', n:'Two rak‘ahs'},
+      {l:'I finished Tawaf', t:'Pray two rak‘ahs', b:'Pray two rak‘ahs, drink Zamzam, then make your way to Safa for Sa‘i.', n:'Sa‘i'},
+      {l:'I’m doing Sa‘i', t:'Seven trips between the hills', b:'Safa to Marwah is the first trip. Marwah back to Safa is the second. You finish at Marwah.', n:'Halq or Qasr'},
+      {l:'I finished Umrah', t:'Shave or trim', b:'Men shave or trim their hair. Women trim. Then your Umrah is complete.', n:'Makkah mode'}
+    ];
+    var wrap = $('#opts'), ans = $('#ans'), cur = 1;
+    S.forEach(function(s,i){
+      var b = document.createElement('button'); b.type='button'; b.className='opt'; b.setAttribute('role','radio'); b.setAttribute('aria-checked','false'); b.textContent = s.l;
+      b.addEventListener('click', function(){ show(i, true); }); wrap.appendChild(b);
+    });
+    function show(i, anim){
+      cur = i; var s = S[i];
+      $$('.opt', wrap).forEach(function(o,j){ o.setAttribute('aria-checked', j===i ? 'true' : 'false'); });
+      ans.innerHTML = '<p class="mini">Your next step</p><h3></h3><p class="b"></p><div class="then"><span class="mini">Then</span><span class="nx"></span></div>';
+      $('h3', ans).textContent = s.t; $('.b', ans).textContent = s.b; $('.nx', ans).textContent = s.n;
+      ans.classList.remove('swap'); if(anim && !reduce){ void ans.offsetWidth; ans.classList.add('swap'); }
+    }
+    show(1, false);
+  })();
+ 
+  /* ---- audiences ---- */
+  (function(){
+    var tiles = $$('.tile'), q = $('#askQ'), a = $('#askA'), card = $('#askcard');
+    tiles.forEach(function(t){
+      t.addEventListener('click', function(){
+        tiles.forEach(function(o){ o.setAttribute('aria-pressed', o===t ? 'true' : 'false'); });
+        q.textContent = t.getAttribute('data-q'); a.textContent = t.getAttribute('data-a');
+        card.classList.remove('swap'); if(!reduce){ void card.offsetWidth; card.classList.add('swap'); }
+      });
+    });
+  })();
+})();
+</script>
